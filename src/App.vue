@@ -28,9 +28,19 @@ export default {
         });
     },
 
+    fetchSerie(url) {
+      // Funzione per chiamata axios (url in store)
+      axios.get(url)
+        .then((response) => {
+          // metti il risultato nell'array movie (in store)
+          store.series = response.data.results;
+        });
+    },
+
     fetchResearched(searchedValue) {
       // Prendi url e aggiungi la ricerca dell'utente (passata come parametro dal figlio Header)
       this.fetchMovie(`${store.movieUrl}${searchedValue}`);
+      this.fetchSerie(`${store.serieUrl}${searchedValue}`);
       console.log(store.movies);
     }
   }

@@ -18,7 +18,7 @@ export default {
 <template>
     <div>
         <AppCard v-for="movie in store.movies" :key="movie.id" :title="movie.title" :originalTitle="movie.original_title"
-            :lang="movie.original_language" :vote="movie.vote_average" />
+            :lang="movie.original_language" :vote="movie.vote_average" :pic="movie.poster_path" />
 
     </div>
 </template>
