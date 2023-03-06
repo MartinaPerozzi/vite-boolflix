@@ -10,7 +10,9 @@ export default {
         vote: Number,
         pic: String,
         overview: String,
+        id: Number,
     },
+    actors: [],
 
     computed: {
         voteStars() {
@@ -21,9 +23,15 @@ export default {
             let emptystars = 5 - this.voteStars;
             console.log(emptystars);
             return emptystars;
-        }
+        },
+        // Tentativo non funziona
+        getCast() {
+            axios.get(`${store.actorUrl}${id}/credits?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=en-US`)
+                .then((response) => {
+                    store.actors = response.data.cast.slice(0, 5);
+                })
+        },
     }
-
 }
 
 </script>
@@ -43,15 +51,13 @@ export default {
                 <span v-if="title != originalTitle"> Titolo originale: {{ originalTitle }} </span>
                 <div> Lingua: {{ lang }}
                     <!-- <img :src="`https://countryflagsapi.com/png/${lang}`" :alt="`Flag ${lang}`"> -->
-                    <img v-if="lang == 'en'" src="https://flagsapi.com/GB/shiny/32.png" alt="Flag England">
-                    <!-- Idem per il Giappone -->
-                    <img v-if="lang == 'ja'" src="https://flagsapi.com/JP/shiny/32.png" alt="Flag Japan">
-
                     <!-- La bandiera inglese gestita a parte per problema incompatibilità en/gb-->
-                    <img v-else="lang != 'en' " :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/32.png`"
-                        :alt="`Flag ${lang}`">
+                    <img v-if="lang === 'en'" src="https://flagsapi.com/GB/shiny/32.png" alt="Flag England">
+                    <!-- Idem per il Giappone -->
+                    <img v-if="lang === 'ja'" src="https://flagsapi.com/JP/shiny/32.png" alt="Flag Japan">
+                    <img v-else:src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/32.png`">
                 </div>
-                <div class="rating stars mt-2">
+                <div class="rating stars mt-2 mb-2">
                     <span> Voto: </span>
                     <font-awesome-icon v-for="star in voteStars" icon="fa-solid fa-star" />
                     <font-awesome-icon v-for="emptystar in emptyStars" icon="fa-regular fa-star" />

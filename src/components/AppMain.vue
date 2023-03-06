@@ -6,7 +6,6 @@ export default {
         return {
             store,
 
-
         }
     },
     components: { AppCard }

@@ -40,6 +40,11 @@ header {
     width: 100%;
     padding: 1rem 3rem;
 
+    h1 {
+        color: red;
+        font-size: 3rem;
+    }
+
     .input-group {
         input {
             height: 50px;
