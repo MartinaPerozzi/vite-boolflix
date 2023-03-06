@@ -9,6 +9,9 @@ export const store = reactive({
     series: [],
     serieUrl: "https://api.themoviedb.org/3/search/tv?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=it-IT&query=",
 
+    // Bandiere
+    flagUrl: "https://countryflagsapi.com/png/"
+
 
     // IMG with dimension - width 342
     // imgUrl: "https://image.tmdb.org/t/p/w342",

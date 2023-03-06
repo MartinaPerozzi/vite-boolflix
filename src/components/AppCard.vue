@@ -1,5 +1,6 @@
 <script>
 import { store } from "../data/store";
+import axios from "axios";
 export default {
     store,
     props: {
@@ -8,7 +9,8 @@ export default {
         lang: String,
         vote: Number,
         pic: String,
-    }
+    },
+
 }
 
 </script>
@@ -17,7 +19,10 @@ export default {
     <div class="info d-flex flex-column">
         <span> {{ title }} </span>
         <span> {{ originalTitle }} </span>
-        <span> {{ lang }} </span>
+        <div> {{ lang }}
+            <!-- <img :src="`https://countryflagsapi.com/png/${lang}`" :alt="`Flag ${lang}`"> -->
+            <img :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/64.png`" :alt="`Flag ${lang}`">
+        </div>
         <span> {{ vote }} </span>
     </div>
     <div>
