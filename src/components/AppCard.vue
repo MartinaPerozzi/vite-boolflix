@@ -9,6 +9,7 @@ export default {
         lang: String,
         vote: Number,
         pic: String,
+        overview: String,
     },
     stars: [],
 
@@ -37,13 +38,14 @@ export default {
                 <img :src="`https://image.tmdb.org/t/p/w342${pic}`" alt="Image Poster">
             </div>
             <div class="card-back d-flex flex-column">
-                <span> {{ title }} </span>
-                <span> {{ originalTitle }} </span>
+                <span> Titolo: {{ title }} </span>
+                <span> Titolo originale: {{ originalTitle }} </span>
                 <div> {{ lang }}
                     <!-- <img :src="`https://countryflagsapi.com/png/${lang}`" :alt="`Flag ${lang}`"> -->
                     <img :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/64.png`" :alt="`Flag ${lang}`">
                 </div>
-                <span> {{ vote }} </span>
+                <span> Voto: {{ vote }} </span>
+                <p> Overview: {{ overview }}</p>
             </div>
         </div>
     </div>
@@ -54,6 +56,7 @@ export default {
     width: 342px;
     height: 513px;
     perspective: 1000px;
+    color: white;
 
     .flip-inner {
         position: relative;
@@ -80,5 +83,21 @@ export default {
 
 .card-back {
     transform: rotateY(180deg);
+    padding: 1rem;
+
+    // Scroll per overview lunghe
+    p {
+        overflow-y: scroll;
+        scroll-behavior: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.card-front img {
+    height: 100%;
 }
 </style>
