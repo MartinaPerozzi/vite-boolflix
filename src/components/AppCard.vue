@@ -11,19 +11,16 @@ export default {
         pic: String,
         overview: String,
     },
-    stars: [],
 
     computed: {
-        VoteStars() {
-            let vote = parseInt.this.vote;
-            let votestars = Math.ceil(vote / 2);
-            console.log(votestars);
-
-            for (let i = 0; i >= votestars; i++) {
-                this.stars.push("ok");
-                return this.stars;
-            }
-
+        voteStars() {
+            let votestars = Math.ceil(this.vote / 2);
+            return votestars;
+        },
+        emptyStars() {
+            let emptystars = 5 - this.voteStars;
+            console.log(emptystars);
+            return emptystars;
         }
     }
 
@@ -39,13 +36,23 @@ export default {
             </div>
             <div class="card-back d-flex flex-column">
                 <span> Titolo: {{ title }} </span>
-                <span> Titolo originale: {{ originalTitle }} </span>
-                <div> {{ lang }}
+                <!-- SOLO se il titolo originale è diverso lo scrivo (risparmio ridondanze) -->
+                <span v-if="title != originalTitle"> Titolo originale: {{ originalTitle }} </span>
+                <div> Lingua: {{ lang }}
                     <!-- <img :src="`https://countryflagsapi.com/png/${lang}`" :alt="`Flag ${lang}`"> -->
-                    <img :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/64.png`" :alt="`Flag ${lang}`">
+                    <img v-if="lang == 'en'" src="https://flagsapi.com/GB/shiny/32.png" alt="Flag England">
+                    <!-- La bandiera inglese gestita a parte per problema incompatibilità en/gb-->
+                    <img v-else="lang != 'en' " :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/32.png`"
+                        :alt="`Flag ${lang}`">
                 </div>
-                <span> Voto: {{ vote }} </span>
+                <span> Voto: </span>
+                <div>
+                    <font-awesome-icon v-for="star in voteStars" icon="fa-solid fa-star" />
+                    <font-awesome-icon v-for="emptystar in emptyStars" icon="fa-regular fa-star" />
+
+                </div>
                 <p> Overview: {{ overview }}</p>
+
             </div>
         </div>
     </div>
@@ -87,8 +94,7 @@ export default {
 
     // Scroll per overview lunghe
     p {
-        overflow-y: scroll;
-        scroll-behavior: auto;
+        overflow-y: auto;
         scrollbar-width: none;
 
         &::-webkit-scrollbar {

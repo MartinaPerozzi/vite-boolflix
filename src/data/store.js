@@ -10,7 +10,7 @@ export const store = reactive({
     serieUrl: "https://api.themoviedb.org/3/search/tv?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=it-IT&query=",
 
     // Bandiere
-    flagUrl: "https://countryflagsapi.com/png/"
+    // flagUrl: "https://countryflagsapi.com/png/"
 
 
     // IMG with dimension - width 342
