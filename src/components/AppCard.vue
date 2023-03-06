@@ -32,7 +32,10 @@ export default {
     <div class="flip-card">
         <div class="flip-inner">
             <div class="card-front">
-                <img :src="`https://image.tmdb.org/t/p/w342${pic}`" alt="Image Poster">
+                <!-- Se l'immagine c'è -->
+                <img v-if="pic" :src="`https://image.tmdb.org/t/p/w342${pic}`" alt="Image Poster">
+                <!-- Altrimenti -->
+                <h2 v-else="pic==null"> TITOLO {{ originalTitle }} </h2>
             </div>
             <div class="card-back d-flex flex-column">
                 <span> Titolo: {{ title }} </span>
@@ -41,12 +44,15 @@ export default {
                 <div> Lingua: {{ lang }}
                     <!-- <img :src="`https://countryflagsapi.com/png/${lang}`" :alt="`Flag ${lang}`"> -->
                     <img v-if="lang == 'en'" src="https://flagsapi.com/GB/shiny/32.png" alt="Flag England">
+                    <!-- Idem per il Giappone -->
+                    <img v-if="lang == 'ja'" src="https://flagsapi.com/JP/shiny/32.png" alt="Flag Japan">
+
                     <!-- La bandiera inglese gestita a parte per problema incompatibilità en/gb-->
                     <img v-else="lang != 'en' " :src="`https://flagsapi.com/${lang.toUpperCase()}/shiny/32.png`"
                         :alt="`Flag ${lang}`">
                 </div>
-                <span> Voto: </span>
-                <div>
+                <div class="rating stars mt-2">
+                    <span> Voto: </span>
                     <font-awesome-icon v-for="star in voteStars" icon="fa-solid fa-star" />
                     <font-awesome-icon v-for="emptystar in emptyStars" icon="fa-regular fa-star" />
 
@@ -59,6 +65,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h2 {
+    color: white;
+}
+
 .flip-card {
     width: 342px;
     height: 513px;

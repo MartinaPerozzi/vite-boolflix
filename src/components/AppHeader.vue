@@ -22,12 +22,15 @@ export default {
 
 <template>
     <header>
-        <div class="input-group mb-3">
-            <!-- Triggero l'evento customizzato nel submit-prevent -->
-            <input type="text" class="form-control" placeholder="Search Movies or Tv Series..."
-                @submit.prevent="$emit('on_search', 'searchedValue')" aria-label="Search" aria-describedby="button-addon2"
-                v-model="store.searchedValue" @keyup="search()">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="search()">Search</button>
+        <div class="d-flex align-items-center">
+            <h1 class="me-5">Boolflix</h1>
+            <div class="input-group mb-3">
+                <!-- Triggero l'evento customizzato nel submit-prevent passando come parametro il valore cercato-->
+                <input type="text" class="form-control" placeholder="Search Movies or Tv Series..."
+                    @submit.prevent="$emit('on_search', 'searchedValue')" aria-label="Search"
+                    aria-describedby="button-addon2" v-model="store.searchedValue" @keyup="search()">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="search()">Search</button>
+            </div>
         </div>
     </header>
 </template>
@@ -35,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 header {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
 
     .input-group {
         input {
