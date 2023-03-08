@@ -41,7 +41,7 @@ header {
     padding: 1rem 3rem;
 
     h1 {
-        color: red;
+        color: #E51A14;
         font-size: 3rem;
         margin-bottom: 0;
     }

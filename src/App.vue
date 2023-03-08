@@ -9,7 +9,6 @@ export default {
   data() {
     return {
       store,
-      resultsType: "movies"
     }
   },
 
@@ -71,12 +70,40 @@ export default {
     },
 
     fetchSerie(url) {
-      // Funzione per chiamata axios (url in store)
+      // // Funzione per chiamata axios (url in store)
+      // axios.get(url)
+      //   .then((response) => {
+      //     // metti il risultato nell'array movie (in store)
+      //     store.series = response.data.results;
+      //   });
+      store.series = [];
+
       axios.get(url)
         .then((response) => {
-          // metti il risultato nell'array movie (in store)
-          store.series = response.data.results;
+
+          response.data.results.forEach((result) => {
+            axios.get(`${store.actorUrl}${result.id}/credits?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=en-US`).then((response) => {
+              let cast = response.data.cast.name;
+              result = {
+                // Stessi nomi così non devo cambiare sul Main (movie.)
+                id: result.id,
+                title: result.title,
+                original_title: result.original_title,
+                original_language: result.original_language,
+                poster_path: result.poster_path,
+                vote_average: result.vote_average,
+                overview: result.overview,
+                cast: response.data.cast.slice(0, 5),
+
+              }
+              store.series.push(result);
+
+            })
+
+          });
+
         });
+
     },
 
     fetchResearched(searchedValue) {
@@ -86,9 +113,7 @@ export default {
       console.log(store.movies);
     },
 
-    filterResults(type) {
-      store.resultsType = type;
-    }
+
   },
 
 }
@@ -98,12 +123,6 @@ export default {
 <template>
   <div>
     <AppHeader @on_search="fetchResearched" />
-
-    <div>
-      <button @click="filterResults('movies')">MOVIES</button>
-      <button @click="filterResults('series')">SERIES</button>
-    </div>
-
     <AppMain />
   </div>
 </template>

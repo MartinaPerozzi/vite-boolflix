@@ -17,7 +17,7 @@ export const store = reactive({
     // IMG with dimension - width 342
     // imgUrl: "https://image.tmdb.org/t/p/w342",
 
-    resultsType: 'movies',
+    resultsType: 'all',
 
 }
 );
