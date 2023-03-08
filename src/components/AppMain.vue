@@ -56,13 +56,13 @@ export default {
 
     button {
         background-color: transparent;
-        color: white;
+        color: #E51A14;
         border: none;
         font-size: 1.5rem;
         position: relative;
 
         &:hover {
-            color: #E51A14;
+            color: white;
         }
     }
 
