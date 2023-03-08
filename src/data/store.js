@@ -12,10 +12,12 @@ export const store = reactive({
     // Bandiere
     // flagUrl: "https://countryflagsapi.com/png/"
     actors: [],
-    actorUrl: "https//api.themoviedb.org/3/movie/",
+    actorUrl: "https://api.themoviedb.org/3/movie/",
 
     // IMG with dimension - width 342
     // imgUrl: "https://image.tmdb.org/t/p/w342",
+
+    resultsType: 'movies',
 
 }
 );

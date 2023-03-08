@@ -1,8 +1,15 @@
 <script>
 import { store } from "../data/store";
 import axios from "axios";
+
 export default {
-    store,
+    data() {
+        return {
+            store,
+            actors: []
+        }
+    },
+
     props: {
         title: String,
         originalTitle: String,
@@ -11,6 +18,7 @@ export default {
         pic: String,
         overview: String,
         id: Number,
+        cast: Array,
     },
     actors: [],
 
@@ -24,14 +32,20 @@ export default {
             console.log(emptystars);
             return emptystars;
         },
-        // Tentativo non funziona
-        getCast() {
-            axios.get(`${store.actorUrl}${id}/credits?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=en-US`)
-                .then((response) => {
-                    store.actors = response.data.cast.slice(0, 5);
-                })
-        },
-    }
+    },
+
+    // methods: {
+    //     getCast() {
+    //         axios.get(`${store.actorUrl}${this.id}/credits?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=en-US`)
+    //             .then((response) => {
+    //                 this.actors = response.data.cast.slice(0, 5);
+    //             })
+    //     },
+    // },
+
+    // created() {
+    //     this.getCast();
+    // }
 }
 
 </script>
@@ -64,6 +78,13 @@ export default {
 
                 </div>
                 <p> Overview: {{ overview }}</p>
+                <div class="cast">
+                    <h5>Cast:</h5>
+                    <ul>
+                        <!-- <li v-for="actor in actors">{{ actor.name }}</li> -->
+                        <li v-for="person in cast">{{ person.name }} </li>
+                    </ul>
+                </div>
 
             </div>
         </div>
@@ -73,6 +94,10 @@ export default {
 <style lang="scss" scoped>
 h2 {
     color: white;
+}
+
+ul {
+    list-style-type: none;
 }
 
 .flip-card {
@@ -121,5 +146,7 @@ h2 {
 
 .card-front img {
     height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
 }
 </style>

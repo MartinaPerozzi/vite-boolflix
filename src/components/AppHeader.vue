@@ -24,7 +24,7 @@ export default {
     <header>
         <div class="d-flex align-items-center">
             <h1 class="me-5">Boolflix</h1>
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <!-- Triggero l'evento customizzato nel submit-prevent passando come parametro il valore cercato-->
                 <input type="text" class="form-control" placeholder="Search Movies or Tv Series..."
                     @submit.prevent="$emit('on_search', 'searchedValue')" aria-label="Search"
@@ -43,6 +43,7 @@ header {
     h1 {
         color: red;
         font-size: 3rem;
+        margin-bottom: 0;
     }
 
     .input-group {

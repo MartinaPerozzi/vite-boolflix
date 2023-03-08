@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       store,
+      resultsType: "movies"
     }
   },
 
@@ -22,11 +23,51 @@ export default {
 
     fetchMovie(url) {
       // Funzione per chiamata axios (url in store)
+      store.movies = [];
+
       axios.get(url)
         .then((response) => {
+
+          response.data.results.forEach((result) => {
+            axios.get(`${store.actorUrl}${result.id}/credits?api_key=7d5cf1350cffe6cb5c1485e4e4bf2de0&language=en-US`).then((response) => {
+              let cast = response.data.cast.name;
+              result = {
+                // Stessi nomi così non devo cambiare sul Main (movie.)
+                id: result.id,
+                title: result.title,
+                original_title: result.original_title,
+                original_language: result.original_language,
+                poster_path: result.poster_path,
+                vote_average: result.vote_average,
+                overview: result.overview,
+                cast: response.data.cast.slice(0, 5),
+
+              }
+              store.movies.push(result);
+
+            })
+
+          });
+
+          // Films.foreach((film) => {
+          //   axios.get(urlcast + film_id).then((resp_cast) => {
+
+          //     //... operazioni per recuperare il cast dalla risposta;
+
+          //     film = {
+          //       id: film.id,
+          //       pic: film.poster,
+          //       cast: cast_array
+          //     }
+
+          //     store.movies.push(film)
+          //   })
+          // })  
+
           // metti il risultato nell'array movie (in store)
-          store.movies = response.data.results;
+          // store.movies = response.data.results;
         });
+
     },
 
     fetchSerie(url) {
@@ -43,22 +84,28 @@ export default {
       this.fetchMovie(`${store.movieUrl}${searchedValue}`);
       this.fetchSerie(`${store.serieUrl}${searchedValue}`);
       console.log(store.movies);
+    },
+
+    filterResults(type) {
+      store.resultsType = type;
     }
-  }
+  },
 
 }
 
 </script>
 
 <template>
-  <AppHeader @on_search="fetchResearched" />
-  <AppMain />
+  <div>
+    <AppHeader @on_search="fetchResearched" />
+
+    <div>
+      <button @click="filterResults('movies')">MOVIES</button>
+      <button @click="filterResults('series')">SERIES</button>
+    </div>
+
+    <AppMain />
+  </div>
 </template>
 
-<style>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-
-}
-</style>
+<style></style>
