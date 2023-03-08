@@ -79,9 +79,13 @@ export default {
                 </div>
                 <p> Overview: {{ overview }}</p>
                 <div class="cast">
-                    <h5>Cast:</h5>
-                    <ul>
+                    <ul v-if="cast.length > 0">
+                        <li>
+                            <h5>Cast:</h5>
+                        </li>
+                        <!-- Primo metodo con chiamata in locale, ma per lasciare la card neutrale -->
                         <!-- <li v-for="actor in actors">{{ actor.name }}</li> -->
+                        <!-- Secondo metodo -->
                         <li v-for="person in cast">{{ person.name }} </li>
                     </ul>
                 </div>
